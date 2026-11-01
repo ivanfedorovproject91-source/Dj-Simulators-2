@@ -383,7 +383,7 @@ const _end6=end;end=function(k){T=null;_end6(k)};const _go6=go;go=function(){T=n
 </script>
 <script>
 /* v0.7: обучающие подсказки, мелкие приколы, реакции на выходки, рейтинг игроков */
-const LB_URL=''; // сюда вставляется ссылка на сервер рейтинга (см. README-рейтинг.md)
+const LB_URL='https://script.google.com/macros/s/AKfycbzar9gHZ4tHaYrlh34VHnip0kk4-dTZD0G8gkGEpZawGt2kLimbUwaSRzVj6NZwm1oi/exec'; // сюда вставляется ссылка на сервер рейтинга (см. README-рейтинг.md)
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function tip(t,ms){try{const o=document.getElementById('tipb');if(o)o.remove();const d=document.createElement('div');d.id='tipb';d.style.cssText='position:fixed;left:10px;right:10px;top:calc(10px + env(safe-area-inset-top));z-index:9;background:#35306f;border:2px solid #ff3dcb;border-radius:12px;padding:12px;font-size:14px;line-height:1.4;max-width:460px;margin:0 auto';d.innerHTML=t+'<div class="mu" style="margin-top:6px">Нажми, чтобы закрыть</div>';d.onclick=()=>d.remove();document.body.appendChild(d);setTimeout(()=>d.remove(),ms||9000)}catch(e){}}
 const hintOnce=(k,t,ms)=>{if(S&&S.hs&&!S.hs[k]){S.hs[k]=1;tip(t,ms)}};
@@ -420,5 +420,8 @@ async function subm(){if(!LB_URL)return lb('Сервер рейтинга пок
 const _e7=end;end=function(k){let sc=0;if(S){sc=score(k);saveRun(sc,k);try{if(LB_URL)fetch(LB_URL,{method:'POST',body:JSON.stringify({id:pid(),name:S.name,score:sc,status:status(),days:S.day,ending:k})})}catch(e){}}_e7(k);app.innerHTML=app.innerHTML.replace('<button onclick="S=null;boot()">',`<div class="card">Итоговый рейтинг: <b>${sc}</b> очков</div><button class="g" onclick="lb()">Таблица рейтинга</button><button onclick="S=null;boot()">`)};
 const _more7=more;more=function(m){_more7(m);app.innerHTML=app.innerHTML.replace('<button class="g" onclick="stScr()">Статусы и прогресс</button>','<button class="g" onclick="lb()">Рейтинг игроков</button><button class="g" onclick="gags()">Мелкие приколы</button><button class="g" onclick="stScr()">Статусы и прогресс</button>')};
 const _m7=menu;menu=function(msg){if(S&&!T&&!S.hs){S.hs={};S.loan=0;S.loanD=0}_m7(msg);if(S&&!T)hintOnce('m1','<b>С чего начать</b><br>1) Магазин: ноутбук и наушники.<br>2) «Музыка»: скачай шансон и 90-е для рюмочной.<br>3) Ночью играй сет. Следи за усталостью, днём учись и копи на переезд.',14000)};
+/* v0.7.1: счётчик игроков. Работает, когда в LB_URL вставлена ссылка на сервер (см. ИНСТРУКЦИЯ-статистика.md) */
+function ping(){try{if(!LB_URL)return;const u=(tg&&tg.initDataUnsafe)||{};fetch(LB_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({type:'ping',id:pid(),sp:String(u.start_param||'').slice(0,40),pl:(tg&&tg.platform)||'web',v:'0.7'})}).catch(()=>{})}catch(e){}}
+ping();
 </script>
 </body></html>
